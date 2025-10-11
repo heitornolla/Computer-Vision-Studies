@@ -2,7 +2,7 @@
 
 This repository contains both code and explanations of Computer Vision topics and books I've studied. Everything I've found most useful is neatly compiled here.
 
-Since I mainly work with PyTorch and Deep Learning, this is the main focus of the repository. If you're looking for either TensorFlow, OpenCV or more general ML content, there are likely better resources. Still, the books and Youtube channels listed here may still help.
+Since I mainly work with PyTorch and Deep Learning, this is the main focus of the repository. If you're looking for either TensorFlow, OpenCV or more general ML content, there are likely better resources. Still, the books and Youtube channels listed here will surely help.
 
 ## Directories
 
