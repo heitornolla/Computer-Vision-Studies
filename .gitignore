@@ -1,6 +1,8 @@
 # Project
 *.gz
 *ubyte*
+*.jpg
+*.png
 
 # Tensorboard
 *tfevents*
