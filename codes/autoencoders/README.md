@@ -14,5 +14,3 @@ Introduce probabilistic inference; the encoder outputs a distribution (typically
 Sampling is possible from a standard normal distribution, but:
 - Reconstructions are often blurry.
 - Generated samples can lack fine detail or realism.
-
-## Intuition behind DeepFake Generation with Autoencoders
