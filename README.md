@@ -4,6 +4,8 @@ This repository contains both code and explanations of Computer Vision topics an
 
 Since I mainly work with PyTorch and Deep Learning, this is the main focus of the repository. If you're looking for either TensorFlow, OpenCV or more general ML content, there are likely better resources. Still, the books and Youtube channels listed here will surely help.
 
+> **Be aware**: This repository focuses on studying and understanding Computer Vision concepts and implementations. As such, other concepts which I consider essential for development end up falling a bit out of scope. For real-world applications you should absolutely cover aspects such as model deployment, experiment tracking, Docker, Kubernetes, and cloud platforms.
+
 ## Directories
 
 ### Books
