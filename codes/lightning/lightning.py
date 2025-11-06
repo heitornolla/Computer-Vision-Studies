@@ -4,9 +4,8 @@ import torchvision.datasets as datasets
 import torchvision.transforms as transforms
 from torch import nn, optim
 from torch.utils.data import DataLoader
-from tqdm import tqdm
 from torch.utils.data import random_split
-import pytorch_lightning as pl 
+import pytorch_lightning as pl
 
 
 class NN(pl.LightningModule):
@@ -23,28 +22,28 @@ class NN(pl.LightningModule):
 
     def training_step(self, batch, batch_idx):
         loss, scores, y = self._common_step(batch, batch_idx)
-        self.log('train_loss', loss)
+        self.log("train_loss", loss)
         return loss
-    
+
     def validation_step(self, batch, batch_idx):
         loss, scores, y = self._common_step(batch, batch_idx)
-        self.log('val_loss', loss)
+        self.log("val_loss", loss)
         return loss
 
     def test_step(self, batch, batch_idx):
         loss, scores, y = self._common_step(batch, batch_idx)
-        self.log('test_loss', loss)
+        self.log("test_loss", loss)
         return loss
 
     def _common_step(self, batch, batch_idx):
-        x, y = batch 
+        x, y = batch
         x = x.reshape(x.size(0), -1)
         scores = self.forward(x)
         loss = self.loss_fn(scores, y)
         return loss, scores, y
 
     def predict_step(self, batch, batch_idx):
-        x, y = batch 
+        x, y = batch
         x = x.reshape(x.size(0), -1)
         scores = self.forward(x)
         preds = torch.argmax(scores, dim=1)
@@ -53,8 +52,8 @@ class NN(pl.LightningModule):
     def configure_optimizers(self):
         return optim.Adam(self.parameters(), lr=0.001)
 
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
+device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 input_size = 784
 num_classes = 10
@@ -71,32 +70,25 @@ test_ds = datasets.MNIST(
 )
 
 train_loader = DataLoader(dataset=train_ds, batch_size=batch_size, shuffle=True)
-val_loader = DataLoader(dataset=train_ds, batch_size=batch_size, shuffle=True)
+val_loader = DataLoader(dataset=val_ds, batch_size=batch_size, shuffle=False)
 test_loader = DataLoader(dataset=test_ds, batch_size=batch_size, shuffle=False)
 
-
 model = NN(input_size=input_size, num_classes=num_classes).to(device)
-
 
 criterion = nn.CrossEntropyLoss()
 optimizer = optim.Adam(model.parameters(), lr=learning_rate)
 
+trainer = pl.Trainer(
+    accelerator="gpu", 
+    devices=1, 
+    min_epochs=1, 
+    max_epochs=3, 
+    precision=16,
+)
 
-for epoch in range(num_epochs):
-    for batch_idx, (data, targets) in enumerate(tqdm(train_loader)):
-
-        data = data.to(device=device)
-        targets = targets.to(device=device)
-
-        data = data.reshape(data.shape[0], -1)
-
-        scores = model(data)
-        loss = criterion(scores, targets)
-
-        optimizer.zero_grad()
-        loss.backward()
-
-        optimizer.step()
+trainer.fit(model, train_loader, val_loader)
+trainer.validate(model, val_loader)
+trainer.test(model, test_loader)
 
 
 def check_accuracy(loader, model):
@@ -106,6 +98,7 @@ def check_accuracy(loader, model):
 
     with torch.no_grad():
         for x, y in loader:
+
             x = x.to(device=device)
             y = y.to(device=device)
 
