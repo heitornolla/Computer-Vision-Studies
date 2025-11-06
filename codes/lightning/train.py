@@ -5,11 +5,16 @@ from utils.dataset import MnistDataModule
 import utils.config as config
 from utils.callbacks import MyPrintingCallback, EarlyStopping
 from pytorch_lightning.loggers import TensorBoardLogger
+from pytorch_lightning.profilers import PyTorchProfiler
 
 torch.set_float32_matmul_precision("medium") # to make lightning happy
 
 if __name__ == "__main__":
-    logger = TensorBoardLogger("tb_logs", name="mnist_model_v0")
+    logger = TensorBoardLogger("tb_logs", name="mnist_model_v1")
+    profiler = PyTorchProfiler(
+        on_trace_ready=torch.profiler.tensorboard_trace_handler("tb_logs/profiler0"),
+        schedule=torch.profiler.schedule(skip_first=10, wait=1, warmup=1, active=20),
+    )
     model = NN(
         input_size=config.INPUT_SIZE,
         learning_rate=config.LEARNING_RATE,
@@ -21,6 +26,7 @@ if __name__ == "__main__":
         num_workers=config.NUM_WORKERS,
     )
     trainer = pl.Trainer(
+        profiler=profiler,
         logger=logger,
         accelerator=config.ACCELERATOR,
         devices=config.DEVICES,
