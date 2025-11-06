@@ -1,7 +1,11 @@
+import torch
 import pytorch_lightning as pl
 from utils.model import NN
 from utils.dataset import MnistDataModule
 import utils.config as config
+from utils.callbacks import MyPrintingCallback, EarlyStopping
+
+torch.set_float32_matmul_precision("medium") # to make lightning happy
 
 if __name__ == "__main__":
     model = NN(
@@ -18,8 +22,9 @@ if __name__ == "__main__":
         accelerator=config.ACCELERATOR,
         devices=config.DEVICES,
         min_epochs=1,
-        max_epochs=3,
+        max_epochs=config.NUM_EPOCHS,
         precision=config.PRECISION,
+        callbacks=[MyPrintingCallback(), EarlyStopping(monitor="val_loss")],
     )
     trainer.fit(model, dm)
     trainer.validate(model, dm)
