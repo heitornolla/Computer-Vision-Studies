@@ -11,3 +11,5 @@ I'm dedicating some time to learn C++ myself and I'll document resources and use
 As a roadmap, I've defined for myself two "phases". In Phase 1, I look to speed up a specific part of Python code by rewriting just that part in C++. Phase 2 will then remove Python entirely.
 
 Some useful documentation for these experiments is the [C++ Pytorch](https://pytorch.org/cppdocs/).
+
+I've use C++ with WSL and have set it up C++ with [this](https://code.visualstudio.com/docs/cpp/config-wsl) tutorial.
