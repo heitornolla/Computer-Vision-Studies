@@ -12,4 +12,6 @@ As a roadmap, I've defined for myself two "phases". In Phase 1, I look to speed 
 
 Some useful documentation for these experiments is the [C++ Pytorch](https://pytorch.org/cppdocs/).
 
-I've use C++ with WSL and have set it up C++ with [this](https://code.visualstudio.com/docs/cpp/config-wsl) tutorial.
+I'm using C++ with WSL and have set it up C++ with [this](https://code.visualstudio.com/docs/cpp/config-wsl) tutorial.
+
+I'm using LibTorch 2.9.1 with CUDA 13.0.
