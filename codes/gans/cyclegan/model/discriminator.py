@@ -59,8 +59,10 @@ class Discriminator(nn.Module):
 
     def forward(self, x):
         x = self.initial(x)
-        return torch.sigmoid(self.model(x))
-
+        
+        #return torch.sigmoid(self.model(x)) LSGAN works with linear outputs
+        return self.model(x)
+        
 
 if __name__ == "__main__":
     x = torch.randn((5, 3, 256, 256))
