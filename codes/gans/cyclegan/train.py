@@ -1,3 +1,4 @@
+import os
 import torch 
 import torch.nn as nn
 import torch.optim as optim
@@ -15,7 +16,7 @@ from utils.dataset import get_fingerprint_loaders
 
 
 def train(
-    disc_R, disc_L, gen_L, gen_R, loader, opt_disc, opt_gen, l1, mse, d_scaler, g_scaler
+    disc_R, disc_L, gen_L, gen_R, loader, opt_disc, opt_gen, l1, mse, d_scaler, g_scaler, epoch
 ):
     R_reals = 0
     R_fakes = 0
@@ -87,10 +88,11 @@ def train(
         g_scaler.update()
 
         if idx % 200 == 0:
-            save_image(fake_reference * 0.5 + 0.5, f"saved_images/fake_reference_{idx}.png")
-            save_image(fake_latent * 0.5 + 0.5, f"saved_images/fake_latent_{idx}.png")
+            os.makedirs(f"saved_images/{epoch}", exist_ok=True)
+            save_image(fake_reference * 0.5 + 0.5, f"saved_images/{epoch}/fake_reference_{idx}.png")
+            save_image(fake_latent * 0.5 + 0.5, f"saved_images/{epoch}/fake_latent_{idx}.png")
 
-        if idx % 10 == 0:
+        if idx % 100 == 0:
             loop.set_postfix(R_real=R_reals / (idx + 1), R_fake=R_fakes / (idx + 1))
 
 
@@ -159,6 +161,7 @@ def main():
             mse,
             d_scaler,
             g_scaler,
+            epoch,
         )
 
         if config.SAVE_MODEL:
