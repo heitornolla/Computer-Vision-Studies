@@ -22,7 +22,7 @@ def train(
     R_fakes = 0
     loop = tqdm(loader, leave=True)
 
-    for idx, (latent, reference) in enumerate(loop):
+    for idx, (reference, latent) in enumerate(loop):
         latent = latent.to(config.DEVICE)
         reference = reference.to(config.DEVICE)
 
