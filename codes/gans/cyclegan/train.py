@@ -87,8 +87,8 @@ def train(
         g_scaler.update()
 
         if idx % 200 == 0:
-            save_image(fake_reference * 0.5 + 0.5, f"saved_images/reference_{idx}.png")
-            save_image(fake_latent * 0.5 + 0.5, f"saved_images/latent_{idx}.png")
+            save_image(fake_reference * 0.5 + 0.5, f"saved_images/fake_reference_{idx}.png")
+            save_image(fake_latent * 0.5 + 0.5, f"saved_images/fake_latent_{idx}.png")
 
         if idx % 10 == 0:
             loop.set_postfix(R_real=R_reals / (idx + 1), R_fake=R_fakes / (idx + 1))
