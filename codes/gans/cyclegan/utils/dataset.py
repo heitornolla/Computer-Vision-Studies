@@ -71,7 +71,7 @@ def get_fingerprint_loaders():
         train_fnames_ref,
         train_fnames_lat,
         image_size=config.IMG_SIZE,
-        apply_transforms=False,
+        apply_transforms=True,
     )
 
     test_dataset = GAN_DataLoader(
