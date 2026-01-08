@@ -44,11 +44,11 @@ class GAN_DataLoader(Dataset):
         return max(len(self.ref_imgs), len(self.lat_imgs))
 
     def __getitem__(self, index):
-        img_a_path = self.ref_imgs[index % len(self.ref_imgs)]
-        img_b_path = self.lat_imgs[index % len(self.lat_imgs)]
+        ref_path = self.ref_imgs[index % len(self.ref_imgs)]
+        lat_path = self.lat_imgs[index % len(self.lat_imgs)]
 
-        img_a = Image.open(img_a_path).convert("RGB")
-        img_b = Image.open(img_b_path).convert("RGB")
+        img_a = Image.open(ref_path).convert("RGB")
+        img_b = Image.open(lat_path).convert("RGB")
 
         return self.transform(img_a), self.transform(img_b)
 
