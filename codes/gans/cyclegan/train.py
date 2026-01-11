@@ -88,9 +88,28 @@ def train(
         g_scaler.update()
 
         if idx % 200 == 0:
-            os.makedirs(f"saved_images/{epoch}", exist_ok=True)
-            save_image(fake_reference * 0.5 + 0.5, f"saved_images/{epoch}/fake_reference_{idx}.png")
-            save_image(fake_latent * 0.5 + 0.5, f"saved_images/{epoch}/fake_latent_{idx}.png")
+            save_dir = f"saved_images/{epoch}"
+            os.makedirs(save_dir, exist_ok=True)
+
+            # latent -> fake_reference
+            save_image(
+                latent * 0.5 + 0.5,
+                f"{save_dir}/latent_source_{idx}.png"
+            )
+            save_image(
+                fake_reference * 0.5 + 0.5,
+                f"{save_dir}/latent_to_reference_{idx}.png"
+            )
+
+            # reference -> fake_latent
+            save_image(
+                reference * 0.5 + 0.5,
+                f"{save_dir}/reference_source_{idx}.png"
+            )
+            save_image(
+                fake_latent * 0.5 + 0.5,
+                f"{save_dir}/reference_to_latent_{idx}.png"
+            )
 
         if idx % 100 == 0:
             loop.set_postfix(R_real=R_reals / (idx + 1), R_fake=R_fakes / (idx + 1))
