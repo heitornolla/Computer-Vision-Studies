@@ -15,3 +15,7 @@ Some useful documentation for these experiments is the [C++ Pytorch](https://pyt
 I'm using C++ with WSL and have set it up C++ with [this](https://code.visualstudio.com/docs/cpp/config-wsl) tutorial.
 
 I'm using LibTorch 2.9.1 with CUDA 13.0.
+
+--
+
+I'm now going through [this](https://github.com/PacktPublishing/Hands-On-Machine-Learning-with-CPP) Packt book which is quite good. Definetly recommend!
